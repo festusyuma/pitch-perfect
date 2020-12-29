@@ -57,12 +57,14 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         try! audioSession.setActive(false)
     }
     
+    //Configures the UI on button events
     func configureUI(_ isRecording: Bool){
         recordingLabel.text = isRecording ? "Recording in Progress" : "Tap to record"
         recordButton.isEnabled = !isRecording
         stopRecordingButton.isEnabled = isRecording
     }
     
+    //Perform segue when recording is completely saved
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
@@ -75,7 +77,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         if segue.identifier == "stopRecording" {
             let playSoundVC = segue.destination as! PlaySoundsViewController
             let recordedAudioURL = sender as! URL
-            playSoundVC.recordedAudioURL = recordedAudioURL
+            playSoundVC.recordedAudioURL = recordedAudioURL //Sends the path url of the recorded audio
         }
     }
 }
